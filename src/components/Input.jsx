@@ -5,6 +5,8 @@ export default function Input({
   labelText,
   inputClass,
   labelClass,
+  value,
+  onChange,
 }) {
   return (
     <>
@@ -14,8 +16,10 @@ export default function Input({
       <input
         name={name}
         type={type}
+        value={type === "file" ? undefined : value}
         defaultValue={defaultValue}
         className={inputClass}
+        onChange={onChange}
       />
     </>
   );
