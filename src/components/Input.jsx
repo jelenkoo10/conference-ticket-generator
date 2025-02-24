@@ -1,12 +1,15 @@
+import Error from "./Error";
+
 export default function Input({
   type,
   name,
-  defaultValue,
+  placeholder,
   labelText,
   inputClass,
   labelClass,
   value,
   onChange,
+  error,
 }) {
   return (
     <>
@@ -17,10 +20,11 @@ export default function Input({
         name={name}
         type={type}
         value={type === "file" ? undefined : value}
-        defaultValue={defaultValue}
-        className={inputClass}
+        placeholder={placeholder}
+        className={`${inputClass} ${!error ? "mb-8" : null}`}
         onChange={onChange}
       />
+      {error ? <Error errorMessage={error} /> : null}
     </>
   );
 }
