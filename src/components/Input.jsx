@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Error from "./Error";
 
 export default function Input({
@@ -11,6 +12,8 @@ export default function Input({
   onChange,
   error,
 }) {
+  const [entered, setEntered] = useState(false);
+
   return (
     <>
       <label htmlFor={name} className={labelClass}>
@@ -21,10 +24,15 @@ export default function Input({
         type={type}
         value={type === "file" ? undefined : value}
         placeholder={placeholder}
-        className={`${inputClass} ${!error ? "mb-8" : null}`}
-        onChange={onChange}
+        className={`${inputClass} ${!entered || !error ? "mb-8" : null}`}
+        onChange={(e) => {
+          onChange(e);
+          if (!entered) {
+            setEntered(true);
+          }
+        }}
       />
-      {error ? <Error errorMessage={error} /> : null}
+      {error && entered ? <Error errorMessage={error} /> : null}
     </>
   );
 }
