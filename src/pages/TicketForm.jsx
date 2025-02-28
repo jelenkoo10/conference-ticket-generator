@@ -3,6 +3,7 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import IconUpload from "../../assets/images/icon-upload.svg";
 import IconInfo from "../../assets/images/icon-info.svg";
+import validateEmail from "../utils/validateEmail";
 import { useState } from "react";
 
 export default function TicketForm({ submitForm }) {
@@ -16,12 +17,8 @@ export default function TicketForm({ submitForm }) {
   const [avatarError, setAvatarError] = useState("");
   const [isValid, setIsValid] = useState(false);
 
-  const validateEmail = (email) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
+  const validateForm = (avatar, full_name, email, github_username) => {
+    return avatar && full_name && validateEmail(email) && github_username;
   };
 
   const handleChange = (e) => {
@@ -46,25 +43,32 @@ export default function TicketForm({ submitForm }) {
 
       const previewURL = URL.createObjectURL(file);
 
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        avatar: file,
-        avatarPreview: previewURL,
-      }));
+      setFormData((prevFormData) => {
+        const updatedFormData = {
+          ...prevFormData,
+          avatar: file,
+          avatarPreview: previewURL,
+        };
+
+        const { avatar, full_name, email, github_username } = updatedFormData;
+        setIsValid(validateForm(avatar, full_name, email, github_username));
+
+        return updatedFormData;
+      });
 
       setAvatarError("");
     } else {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
-    }
+      setFormData((prevFormData) => {
+        const updatedFormData = {
+          ...prevFormData,
+          [name]: value,
+        };
 
-    const { avatar, full_name, email, github_username } = formData;
-    if (!avatar || !full_name || !validateEmail(email) || !github_username) {
-      setIsValid(false);
-    } else {
-      setIsValid(true);
+        const { avatar, full_name, email, github_username } = updatedFormData;
+        setIsValid(validateForm(avatar, full_name, email, github_username));
+
+        return updatedFormData;
+      });
     }
   };
 
@@ -72,11 +76,18 @@ export default function TicketForm({ submitForm }) {
     if (formData.avatarPreview) {
       URL.revokeObjectURL(formData.avatarPreview);
     }
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      avatar: null,
-      avatarPreview: null,
-    }));
+    setFormData((prevFormData) => {
+      const updatedFormData = {
+        ...prevFormData,
+        avatar: null,
+        avatarPreview: null,
+      };
+
+      const { avatar, full_name, email, github_username } = updatedFormData;
+      setIsValid(validateForm(avatar, full_name, email, github_username));
+
+      return updatedFormData;
+    });
   };
 
   const handleSubmit = (e) => {
