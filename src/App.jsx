@@ -1,16 +1,26 @@
 import { useState } from "react";
 import DesignLines from "./components/DesignLines";
 import TicketForm from "./pages/TicketForm";
-import Ticket from "./pages/Ticket";
+import TicketPage from "./pages/TicketPage";
 import "./App.css";
 
 function App() {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [data, setData] = useState({});
+
+  const submitForm = (formData) => {
+    setIsFormSubmitted((prevFormSubmitted) => !prevFormSubmitted);
+    setData(formData);
+  };
 
   return (
-    <main className="w-full">
+    <main className="w-full h-screen">
       <DesignLines />
-      {isFormSubmitted ? <Ticket /> : <TicketForm />}
+      {isFormSubmitted ? (
+        <TicketPage data={data} />
+      ) : (
+        <TicketForm submitForm={submitForm} />
+      )}
     </main>
   );
 }
