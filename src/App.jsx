@@ -14,7 +14,7 @@ function App() {
   };
 
   return (
-    <main className="w-full h-screen">
+    <main className="w-full min-h-screen">
       <DesignLines />
       {isFormSubmitted ? (
         <TicketPage data={data} />

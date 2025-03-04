@@ -98,20 +98,20 @@ export default function TicketForm({ submitForm }) {
   return (
     <section className="px-4 py-8 flex flex-col items-center justify-center text-center gap-5 relative z-10">
       <Logo />
-      <p className="text-[color:var(--neutral-0)] font-bold text-2xl">
+      <p className="text-[color:var(--neutral-0)] font-extrabold text-2xl mt-4 leading-tight">
         Your Journey to Coding Conf 2025 Starts Here!
       </p>
-      <p className="px-4 text-[var(--neutral-300)]">
+      <p className="text-[var(--neutral-300)] text-xl leading-tight">
         Secure your spot at next year's biggest coding conference.
       </p>
-      <form onSubmit={handleSubmit} className="w-full">
+      <form onSubmit={handleSubmit} className="w-full mt-6">
         <div className="relative w-full">
           <Input
             type="file"
             name="avatar"
             labelText="Upload Avatar"
             inputClass="block w-full opacity-80 rounded-xl px-2 py-10 border border-dashed border-white bg-[var(--neutral-700)] text-[rgba(0,0,0,0)]"
-            labelClass="text-left block mb-2 text-[var(--neutral-300)]"
+            labelClass="text-xl font-semibold text-left block mb-2 text-[var(--neutral-300)]"
             value={formData.avatar}
             onChange={handleChange}
             error={avatarError}
@@ -143,7 +143,11 @@ export default function TicketForm({ submitForm }) {
               </div>
             </div>
           ) : (
-            <div className="absolute top-[60%] left-[50%] translate-[-50%] flex flex-col gap-3 items-center pointer-events-none w-full">
+            <div
+              className={`absolute  left-[50%] translate-[-50%] flex flex-col gap-3 items-center pointer-events-none w-full ${
+                !avatarError ? "top-[60%]" : "top-[52%]"
+              }`}
+            >
               <img
                 src={IconUpload}
                 alt="Upload icon"
@@ -153,8 +157,8 @@ export default function TicketForm({ submitForm }) {
             </div>
           )}
         </div>
-        {!formData.avatarPreview && (
-          <div className="flex gap-2 items-center mt-2 mb-8 text-[14px]">
+        {!formData.avatarPreview && !avatarError && (
+          <div className="flex gap-2 items-center mt-[-28px] mb-8 text-[14px]">
             <img src={IconInfo} alt="Info icon" />
             <span className="leading-none mt-0.5">
               Upload your photo (JPG or PNG, max size: 500KB)
@@ -166,7 +170,7 @@ export default function TicketForm({ submitForm }) {
           name="full_name"
           labelText="Full Name"
           inputClass="block w-full rounded-xl px-2 py-3 border border-white bg-[var(--neutral-700)]"
-          labelClass="text-left block mb-2 text-[var(--neutral-300)]"
+          labelClass="text-xl font-semibold text-left block mb-2 text-[var(--neutral-300)]"
           value={formData.full_name}
           onChange={handleChange}
           error={
@@ -181,7 +185,7 @@ export default function TicketForm({ submitForm }) {
           placeholder="example@email.com"
           labelText="Email Address"
           inputClass="block w-full opacity-80 rounded-xl px-2 py-3 border border-white bg-[var(--neutral-700)]"
-          labelClass="text-left block mb-2 text-[var(--neutral-300)]"
+          labelClass="text-xl font-semibold text-left block mb-2 text-[var(--neutral-300)]"
           value={formData.email}
           onChange={handleChange}
           error={
@@ -196,7 +200,7 @@ export default function TicketForm({ submitForm }) {
           placeholder="@yourusername"
           labelText="Github Username"
           inputClass="block w-full opacity-80 rounded-xl px-2 py-3 border border-white bg-[var(--neutral-700)]"
-          labelClass="text-left block mb-2 text-[var(--neutral-300)]"
+          labelClass="text-xl font-semibold text-left block mb-2 text-[var(--neutral-300)]"
           value={formData.github_username}
           onChange={handleChange}
           error={
