@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import DesignLines from "./components/DesignLines";
-import TicketForm from "./pages/TicketForm";
 import TicketPage from "./pages/TicketPage";
 import "./App.css";
+
+const TicketForm = lazy(() => import("./pages/TicketForm"));
 
 function App() {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -19,7 +20,9 @@ function App() {
       {isFormSubmitted ? (
         <TicketPage data={data} />
       ) : (
-        <TicketForm submitForm={submitForm} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <TicketForm submitForm={submitForm} />
+        </Suspense>
       )}
     </main>
   );

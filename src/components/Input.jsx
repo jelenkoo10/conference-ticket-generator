@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import Error from "./Error";
 
-export default function Input({
-  type,
-  name,
-  placeholder,
-  labelText,
-  inputClass,
-  labelClass,
-  value,
-  onChange,
-  error,
-}) {
+const Input = memo((props) => {
+  const {
+    type,
+    name,
+    placeholder,
+    labelText,
+    inputClass,
+    labelClass,
+    value,
+    onChange,
+    error,
+  } = props;
   const [entered, setEntered] = useState(false);
 
   return (
@@ -35,4 +36,6 @@ export default function Input({
       {error && entered ? <Error errorMessage={error} /> : null}
     </>
   );
-}
+});
+
+export default Input;

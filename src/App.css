@@ -12,3 +12,7 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.bg-pattern-ticket {
+  background-image: url(../../assets/images/pattern-ticket.svg);
+}

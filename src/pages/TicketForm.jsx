@@ -4,7 +4,8 @@ import Button from "../components/Button";
 import IconUpload from "../../assets/images/icon-upload.svg";
 import IconInfo from "../../assets/images/icon-info.svg";
 import validateEmail from "../utils/validateEmail";
-import { useState } from "react";
+import validateForm from "../utils/validateForm";
+import { useState, useEffect, useRef } from "react";
 
 export default function TicketForm({ submitForm }) {
   const [formData, setFormData] = useState({
@@ -16,10 +17,15 @@ export default function TicketForm({ submitForm }) {
   });
   const [avatarError, setAvatarError] = useState("");
   const [isValid, setIsValid] = useState(false);
+  const fileInputRef = useRef(null);
 
-  const validateForm = (avatar, full_name, email, github_username) => {
-    return avatar && full_name && validateEmail(email) && github_username;
-  };
+  useEffect(() => {
+    return () => {
+      if (formData.avatarPreview) {
+        URL.revokeObjectURL(formData.avatarPreview);
+      }
+    };
+  }, [formData.avatarPreview]);
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -90,6 +96,10 @@ export default function TicketForm({ submitForm }) {
     });
   };
 
+  const handleUploadClick = () => {
+    fileInputRef.current.click();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     submitForm(formData);
@@ -112,6 +122,7 @@ export default function TicketForm({ submitForm }) {
           <Input
             type="file"
             name="avatar"
+            ref={fileInputRef}
             labelText="Upload Avatar"
             inputClass="block w-full opacity-80 rounded-xl px-2 py-10 sm:py-14 border border-dashed border-white bg-[var(--neutral-700)] hover:bg-[var(--neutral-500)] text-[rgba(0,0,0,0)] focus:outline focus:outline-white focus:outline-offset-2"
             labelClass="text-xl font-semibold text-left block mb-2 text-[var(--neutral-300)] max-[400px]:text-sm"
@@ -130,16 +141,14 @@ export default function TicketForm({ submitForm }) {
                 <button
                   type="button"
                   onClick={handleRemoveImage}
-                  className="px-3 py-1 text-[14px] rounded-lg bg-[var(--neutral-500)]"
+                  className="px-3 py-1 text-[14px] rounded-lg bg-[var(--neutral-500)] cursor-pointer"
                 >
                   Remove image
                 </button>
                 <button
                   type="button"
-                  onClick={() =>
-                    document.querySelector('input[name="avatar"]').click()
-                  }
-                  className="px-3 py-1 text-[14px] rounded-lg bg-[var(--neutral-500)]"
+                  onClick={handleUploadClick}
+                  className="px-3 py-1 text-[14px] rounded-lg bg-[var(--neutral-500)] cursor-pointer"
                 >
                   Change image
                 </button>
@@ -155,6 +164,9 @@ export default function TicketForm({ submitForm }) {
                 src={IconUpload}
                 alt="Upload icon"
                 className="w-10 p-1 border border-[var(--neutral-500)] rounded-xl"
+                width={40}
+                height={40}
+                loading="lazy"
               />
               <span className="max-[400px]:text-xs">
                 Drag and drop or click to upload
@@ -164,7 +176,13 @@ export default function TicketForm({ submitForm }) {
         </div>
         {!formData.avatarPreview && !avatarError && (
           <div className="flex gap-2 items-center mt-[-28px] mb-8 text-[14px]">
-            <img src={IconInfo} alt="Info icon" />
+            <img
+              src={IconInfo}
+              alt="Info icon"
+              width={16}
+              height={16}
+              loading="lazy"
+            />
             <span className="leading-none min-[380px]:mt-0.5 max-[400px]:text-[10px]">
               Upload your photo (JPG or PNG, max size: 500KB)
             </span>
@@ -216,7 +234,7 @@ export default function TicketForm({ submitForm }) {
         />
         <Button
           className={`bg-[var(--orange-500)] text-[var(--neutral-900)] w-full rounded-xl px-2 py-3 font-bold ${
-            !isValid && "opacity-50"
+            !isValid && "opacity-50 pointer-events-none"
           }`}
           text="Generate my ticket"
           disabled={!isValid}

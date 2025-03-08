@@ -1,7 +1,9 @@
 import Logo from "../components/Logo";
-import TicketCard from "../components/TicketCard";
+import React from "react";
 
-export default function Ticket({ data }) {
+const TicketCard = React.lazy(() => import("../components/TicketCard"));
+
+export default function TicketPage({ data }) {
   const { avatar, avatarPreview, full_name, email, github_username } = data;
 
   return (

@@ -1,6 +1,9 @@
+import { memo } from "react";
 import IconErrorInfo from "../../assets/images/icon-info-error.svg";
 
-export default function Error({ errorMessage }) {
+const Error = memo((props) => {
+  const { errorMessage } = props;
+
   return (
     <div className="flex gap-2 items-center mt-2 mb-8 text-[14px]">
       <img src={IconErrorInfo} alt="Info icon" />
@@ -9,4 +12,6 @@ export default function Error({ errorMessage }) {
       </span>
     </div>
   );
-}
+});
+
+export default Error;
