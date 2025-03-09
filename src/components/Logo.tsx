@@ -1,3 +1,4 @@
+import React from "react";
 import LogoFull from "../../assets/images/logo-full.svg";
 
 export default function Logo() {

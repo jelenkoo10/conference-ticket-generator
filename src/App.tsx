@@ -1,6 +1,7 @@
 import React, { useState, lazy, Suspense } from "react";
 import DesignLines from "./components/DesignLines";
 import TicketPage from "./pages/TicketPage";
+import LoadingSpinner from "./components/LoadingSpinner";
 import "./App.css";
 
 const TicketForm = lazy(() => import("./pages/TicketForm"));
@@ -20,7 +21,7 @@ function App() {
       {isFormSubmitted ? (
         <TicketPage data={data} />
       ) : (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingSpinner />}>
           <TicketForm submitForm={submitForm} />
         </Suspense>
       )}

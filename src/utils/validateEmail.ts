@@ -1,4 +1,4 @@
-const validateEmail = (email) => {
+const validateEmail = (email: string): RegExpMatchArray | null => {
   return String(email)
     .toLowerCase()
     .match(

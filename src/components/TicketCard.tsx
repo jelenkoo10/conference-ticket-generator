@@ -5,8 +5,6 @@ import LogoMark from "../../assets/images/logo-mark.svg";
 import GithubIcon from "../../assets/images/icon-github.svg";
 
 export default function TicketCard(props: Partial<FormDataState>) {
-  console.log(props);
-
   const { full_name, github_username, avatar_preview } = props;
   return (
     <div className="bg-pattern-ticket relative w-full max-w-[500px] aspect-[2.143] bg-cover bg-no-repeat bg-center">

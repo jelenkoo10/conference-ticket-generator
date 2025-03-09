@@ -77,8 +77,6 @@ export default function TicketForm({ submitForm }: TicketFormProps) {
         const { avatar, full_name, email, github_username } = updatedFormData;
         setIsValid(validateForm(avatar, full_name, email, github_username));
 
-        console.log(updatedFormData);
-
         return updatedFormData;
       });
 
@@ -92,8 +90,6 @@ export default function TicketForm({ submitForm }: TicketFormProps) {
 
         const { avatar, full_name, email, github_username } = updatedFormData;
         setIsValid(validateForm(avatar, full_name, email, github_username));
-
-        console.log(updatedFormData);
 
         return updatedFormData;
       });
