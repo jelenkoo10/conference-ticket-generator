@@ -4,7 +4,7 @@ import React from "react";
 const TicketCard = React.lazy(() => import("../components/TicketCard"));
 
 export default function TicketPage({ data }) {
-  const { avatar, avatarPreview, full_name, email, github_username } = data;
+  const { avatar, avatar_preview, full_name, email, github_username } = data;
 
   return (
     <section className="px-4 py-8 flex flex-col items-center justify-center text-center gap-5 md:gap-8 relative z-10">
@@ -22,9 +22,9 @@ export default function TicketPage({ data }) {
         updates in the run up to the event.
       </p>
       <TicketCard
-        name={full_name}
-        github={github_username}
-        avatar={avatarPreview}
+        full_name={full_name}
+        github_username={github_username}
+        avatar_preview={avatar_preview}
       />
     </section>
   );

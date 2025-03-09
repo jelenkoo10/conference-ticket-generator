@@ -1,6 +1,12 @@
-import { memo } from "react";
+import React, { memo } from "react";
 
-const Button = memo((props) => {
+interface ButtonProps {
+  className?: string;
+  text: string;
+  disabled?: boolean;
+}
+
+const Button = memo((props: ButtonProps) => {
   const { className, text, disabled } = props;
 
   return (

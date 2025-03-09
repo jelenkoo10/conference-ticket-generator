@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import DesignLines from "./components/DesignLines";
 import TicketPage from "./pages/TicketPage";
 import "./App.css";

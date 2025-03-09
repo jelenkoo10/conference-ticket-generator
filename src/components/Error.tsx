@@ -1,7 +1,11 @@
-import { memo } from "react";
+import React, { memo } from "react";
 import IconErrorInfo from "../../assets/images/icon-info-error.svg";
 
-const Error = memo((props) => {
+interface ErrorProps {
+  errorMessage: string;
+};
+
+const Error = memo((props: ErrorProps) => {
   const { errorMessage } = props;
 
   return (

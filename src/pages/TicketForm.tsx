@@ -5,32 +5,50 @@ import IconUpload from "../../assets/images/icon-upload.svg";
 import IconInfo from "../../assets/images/icon-info.svg";
 import validateEmail from "../utils/validateEmail";
 import validateForm from "../utils/validateForm";
-import { useState, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  ChangeEvent,
+  FormEvent,
+} from "react";
 
-export default function TicketForm({ submitForm }) {
-  const [formData, setFormData] = useState({
+interface TicketFormProps {
+  submitForm: (data: FormDataState) => void;
+}
+
+export interface FormDataState {
+  avatar: File | null;
+  avatar_preview: string | null;
+  full_name: string;
+  email: string;
+  github_username: string;
+}
+
+export default function TicketForm({ submitForm }: TicketFormProps) {
+  const [formData, setFormData] = useState<FormDataState>({
     avatar: null,
-    avatarPreview: null,
+    avatar_preview: null,
     full_name: "",
     email: "",
     github_username: "",
   });
   const [avatarError, setAvatarError] = useState("");
   const [isValid, setIsValid] = useState(false);
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     return () => {
-      if (formData.avatarPreview) {
-        URL.revokeObjectURL(formData.avatarPreview);
+      if (formData.avatar_preview) {
+        URL.revokeObjectURL(formData.avatar_preview);
       }
     };
-  }, [formData.avatarPreview]);
+  }, [formData.avatar_preview]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, files } = e.target;
 
-    if (type === "file") {
+    if (type === "file" && files) {
       const file = files[0];
       if (file) {
         const fileExtension = file.name.split(".")[1].toLowerCase();
@@ -53,11 +71,13 @@ export default function TicketForm({ submitForm }) {
         const updatedFormData = {
           ...prevFormData,
           avatar: file,
-          avatarPreview: previewURL,
+          avatar_preview: previewURL,
         };
 
         const { avatar, full_name, email, github_username } = updatedFormData;
         setIsValid(validateForm(avatar, full_name, email, github_username));
+
+        console.log(updatedFormData);
 
         return updatedFormData;
       });
@@ -73,20 +93,22 @@ export default function TicketForm({ submitForm }) {
         const { avatar, full_name, email, github_username } = updatedFormData;
         setIsValid(validateForm(avatar, full_name, email, github_username));
 
+        console.log(updatedFormData);
+
         return updatedFormData;
       });
     }
   };
 
   const handleRemoveImage = () => {
-    if (formData.avatarPreview) {
-      URL.revokeObjectURL(formData.avatarPreview);
+    if (formData.avatar_preview) {
+      URL.revokeObjectURL(formData.avatar_preview);
     }
     setFormData((prevFormData) => {
       const updatedFormData = {
         ...prevFormData,
         avatar: null,
-        avatarPreview: null,
+        avatar_preview: null,
       };
 
       const { avatar, full_name, email, github_username } = updatedFormData;
@@ -97,10 +119,12 @@ export default function TicketForm({ submitForm }) {
   };
 
   const handleUploadClick = () => {
-    fileInputRef.current.click();
+    if (fileInputRef && fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     submitForm(formData);
   };
@@ -130,10 +154,10 @@ export default function TicketForm({ submitForm }) {
             onChange={handleChange}
             error={avatarError}
           />
-          {formData.avatarPreview ? (
+          {formData.avatar_preview ? (
             <div className="absolute top-[60%] left-[50%] translate-[-50%] flex flex-col gap-2 items-center justify-center pointer-events-none w-full">
               <img
-                src={formData.avatarPreview}
+                src={formData.avatar_preview}
                 alt="Uploaded avatar"
                 className="w-10 h-10 sm:w-14 sm:h-14 object-cover rounded-xl border border-[var(--neutral-500)]"
               />
@@ -174,7 +198,7 @@ export default function TicketForm({ submitForm }) {
             </div>
           )}
         </div>
-        {!formData.avatarPreview && !avatarError && (
+        {!formData.avatar_preview && !avatarError && (
           <div className="flex gap-2 items-center mt-[-28px] mb-8 text-[14px]">
             <img
               src={IconInfo}

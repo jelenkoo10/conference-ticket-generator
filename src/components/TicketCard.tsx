@@ -1,8 +1,13 @@
+import React from "react";
+import { FormDataState } from "../pages/TicketForm";
 import TicketSvg from "../../assets/images/pattern-ticket.svg";
 import LogoMark from "../../assets/images/logo-mark.svg";
 import GithubIcon from "../../assets/images/icon-github.svg";
 
-export default function TicketCard({ name, github, avatar }) {
+export default function TicketCard(props: Partial<FormDataState>) {
+  console.log(props);
+
+  const { full_name, github_username, avatar_preview } = props;
   return (
     <div className="bg-pattern-ticket relative w-full max-w-[500px] aspect-[2.143] bg-cover bg-no-repeat bg-center">
       <div className="absolute inset-0 p-4 flex flex-col justify-between gap-4 max-[360px]:gap-2">
@@ -27,7 +32,7 @@ export default function TicketCard({ name, github, avatar }) {
 
         <div className="flex items-center gap-4">
           <img
-            src={avatar}
+            src={avatar_preview || ""}
             alt={`Avatar of ${name}`}
             className="w-10 h-10 max-[420px]:w-7 max-[420px]:h-7 lg:w-16 lg:h-16 object-cover rounded-md shadow-lg"
             loading="lazy"
@@ -36,7 +41,7 @@ export default function TicketCard({ name, github, avatar }) {
           />
           <div className="text-left">
             <span className="text-lg max-[420px]:text-sm lg:text-xl font-semibold">
-              {name}
+              {full_name}
             </span>
             <div className="flex items-center gap-2 text-sm text-gray-400">
               <img
@@ -47,7 +52,7 @@ export default function TicketCard({ name, github, avatar }) {
                 width={20}
                 height={20}
               />
-              <span className="max-[420px]:text-xs">{github}</span>
+              <span className="max-[420px]:text-xs">{github_username}</span>
             </div>
           </div>
         </div>
