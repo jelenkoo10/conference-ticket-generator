@@ -14,7 +14,7 @@ export default function DesignLines() {
       <img
         src="../assets/images/pattern-circle.svg"
         alt="Pattern circle"
-        className="fixed top-[50%] right-[-20px] w-20"
+        className="fixed top-[50%] right-[-20px] w-20 lg:right-[20%] lg:w-[200px]"
         loading="lazy"
         width={300}
         height={500}
@@ -30,7 +30,15 @@ export default function DesignLines() {
       <img
         src="../assets/images/pattern-squiggly-line-bottom-mobile-tablet.svg"
         alt="Squiggly bottom line"
-        className="fixed left-0 bottom-0 w-2/3"
+        className="fixed left-0 bottom-0 w-2/3 visible-on-mobile z-1"
+        loading="lazy"
+        width={300}
+        height={300}
+      />
+      <img
+        src="../assets/images/pattern-squiggly-line-bottom-desktop.svg"
+        alt="Squiggly bottom line"
+        className="fixed left-0 bottom-0 w-3/7 visible-on-desktop"
         loading="lazy"
         width={300}
         height={300}
