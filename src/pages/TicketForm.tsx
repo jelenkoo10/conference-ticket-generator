@@ -144,7 +144,7 @@ export default function TicketForm({ submitForm }: TicketFormProps) {
             name="avatar"
             ref={fileInputRef}
             labelText="Upload Avatar"
-            inputClass="block w-full opacity-80 rounded-xl px-2 py-10 sm:py-14 border border-dashed border-white bg-[var(--neutral-700)] hover:bg-[var(--neutral-500)] text-[rgba(0,0,0,0)] focus:outline focus:outline-white focus:outline-offset-2"
+            inputClass="block w-full opacity-80 rounded-xl px-2 py-10 sm:py-14 border border-dashed border-white bg-[var(--neutral-700)] hover:bg-[var(--neutral-500)] text-[rgba(0,0,0,0)] focus:outline focus:outline-white focus:outline-offset-2 cursor-pointer"
             labelClass="text-xl font-semibold text-left block mb-2 text-[var(--neutral-300)] max-[400px]:text-sm"
             value={formData.avatar}
             onChange={handleChange}
@@ -212,7 +212,7 @@ export default function TicketForm({ submitForm }: TicketFormProps) {
           type="text"
           name="full_name"
           labelText="Full Name"
-          inputClass="block w-full rounded-xl px-2 py-3 border border-white bg-[var(--neutral-700)] hover:bg-[var(--neutral-500)] focus:outline focus:outline-white focus:outline-offset-2"
+          inputClass="block w-full rounded-xl px-2 py-3 border border-white bg-[var(--neutral-700)] hover:bg-[var(--neutral-500)] focus:outline focus:outline-white focus:outline-offset-2 cursor-pointer"
           labelClass="text-xl font-semibold text-left block mb-2 text-[var(--neutral-300)] max-[400px]:text-sm"
           value={formData.full_name}
           onChange={handleChange}
@@ -227,7 +227,7 @@ export default function TicketForm({ submitForm }: TicketFormProps) {
           name="email"
           placeholder="example@email.com"
           labelText="Email Address"
-          inputClass="block w-full opacity-80 rounded-xl px-2 py-3 border border-white bg-[var(--neutral-700)] hover:bg-[var(--neutral-500)] focus:outline focus:outline-white focus:outline-offset-2"
+          inputClass="block w-full opacity-80 rounded-xl px-2 py-3 border border-white bg-[var(--neutral-700)] hover:bg-[var(--neutral-500)] focus:outline focus:outline-white focus:outline-offset-2 cursor-pointer"
           labelClass="text-xl font-semibold text-left block mb-2 text-[var(--neutral-300)] max-[400px]:text-sm"
           value={formData.email}
           onChange={handleChange}
@@ -242,7 +242,7 @@ export default function TicketForm({ submitForm }: TicketFormProps) {
           name="github_username"
           placeholder="@yourusername"
           labelText="Github Username"
-          inputClass="block w-full opacity-80 rounded-xl px-2 py-3 border border-white bg-[var(--neutral-700)] hover:bg-[var(--neutral-500)] focus:outline focus:outline-white focus:outline-offset-2"
+          inputClass="block w-full opacity-80 rounded-xl px-2 py-3 border border-white bg-[var(--neutral-700)] hover:bg-[var(--neutral-500)] focus:outline focus:outline-white focus:outline-offset-2 cursor-pointer"
           labelClass="text-xl font-semibold text-left block mb-2 text-[var(--neutral-300)] max-[400px]:text-sm"
           value={formData.github_username}
           onChange={handleChange}
@@ -253,7 +253,7 @@ export default function TicketForm({ submitForm }: TicketFormProps) {
           }
         />
         <Button
-          className={`bg-[var(--orange-500)] text-[var(--neutral-900)] w-full rounded-xl px-2 py-3 font-bold ${
+          className={`bg-[var(--orange-500)] hover:bg-[var(--orange-700)] text-[var(--neutral-900)] w-full rounded-xl px-2 py-3 font-bold cursor-pointer ${
             !isValid && "opacity-50 pointer-events-none"
           }`}
           text="Generate my ticket"
