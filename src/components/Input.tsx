@@ -30,12 +30,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const [entered, setEntered] = useState(false);
 
+    const errorId = `${name}-error`;
+
     return (
       <>
         <label htmlFor={name} className={labelClass}>
           {labelText}
         </label>
         <input
+          id={name}
           ref={ref}
           name={name}
           type={type}
@@ -48,8 +51,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               setEntered(true);
             }
           }}
+          aria-describedby={error ? errorId : undefined}
+          aria-invalid={error ? true : false}
         />
-        {error && entered ? <Error errorMessage={error} /> : null}
+        {error && entered ? <Error errorMessage={error} id={errorId} /> : null}
       </>
     );
   }
